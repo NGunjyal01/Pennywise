@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
     firstName:{
@@ -35,7 +33,11 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }],
+    groups:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Group",
+    }],
 }, {timestamps: true});
 
 
-exports.User = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
