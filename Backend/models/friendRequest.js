@@ -18,4 +18,11 @@ const friendRequestSchema = new mongoose.Schema({
     },
 },{timestamps: true});
 
+friendRequestSchema.pre("save", function(next){
+    if(this.from === this.to){
+        throw new Error("You cannot send a friend request to yourself");
+    };
+    next();
+})
+
 module.exports = mongoose.model("FriendRequest", friendRequestSchema);
