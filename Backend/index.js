@@ -6,13 +6,16 @@ const PORT = process.env.PORT || 3000;
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const friendRequestRoutes = require("./routes/friendRequest");
+const groupRoutes = require("./routes/group");
 const userAuth = require("./middlewares/userAuth");
+
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/",authRoutes);
 app.use("/friendRequest",userAuth,friendRequestRoutes);
+app.use("/group",userAuth,groupRoutes);
 
 connectDb().then(()=>{
     console.log("Database is Connected");

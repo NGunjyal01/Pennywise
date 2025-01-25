@@ -1,12 +1,17 @@
-const friendRequest = require("../../models/friendRequest");
+const FriendRequest = require("../../models/friendRequest");
 
 const send = async (req,res)=>{
     try{
         const {to} = req.params;
-        const from = req.user._id;
+        const fromUser = req.user;
+        const from = fromUser._id;
 
-        const newRequest = new friendRequest({from,to});
-        const request = await friendRequest.findOne({
+        const isFriends = fromUser.friends.includes(to);
+        if(isFriends){
+            throw new Error("Already Friends");
+        }
+        const newRequest = new FriendRequest({from,to});
+        const request = await FriendRequest.findOne({
             $or:[
                 {from:from , to:to},
                 {from:to, to:from}
