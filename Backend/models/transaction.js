@@ -37,9 +37,6 @@ const transactionSchema = new mongoose.Schema({
         amount:{
             type: Number,
         },
-        required: function () {
-            return this.type === "group";
-        },
     }],
     groupId:{
         type: mongoose.Schema.Types.ObjectId,

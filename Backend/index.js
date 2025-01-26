@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const friendRequestRoutes = require("./routes/friendRequest");
 const groupRoutes = require("./routes/group");
+const transactionRoutes = require("./routes/transaction");
 const userAuth = require("./middlewares/userAuth");
 
 
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use("/",authRoutes);
 app.use("/friendRequest",userAuth,friendRequestRoutes);
 app.use("/group",userAuth,groupRoutes);
+app.use("/transaction",userAuth,transactionRoutes);
 
 connectDb().then(()=>{
     console.log("Database is Connected");
