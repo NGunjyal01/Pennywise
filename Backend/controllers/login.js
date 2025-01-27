@@ -6,7 +6,11 @@ const login = async(req, res) => {
     try{
         const {email, password} = req.body;
 
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({email})
+        .populate("friends","firstName lastName userName photoUrl")
+        .populate("transactions")
+        .populate("debts")
+        .populate("groups");
         if(!existingUser){
             return res.status(404).json({
                 success: false,

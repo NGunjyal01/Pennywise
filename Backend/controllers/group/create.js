@@ -5,10 +5,7 @@ const create = async (req,res)=>{
         const {name} = req.body;
         const admin = req.user._id;
         const members = [admin];
-        let description = null;
-        if(req.body.description){
-            description = req.body.description;
-        }
+        const description = req.body.description || null;
         const group = new Group({name,admin,members,description});
         await group.save();
         return res.status(200).json({

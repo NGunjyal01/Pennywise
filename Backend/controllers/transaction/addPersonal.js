@@ -8,10 +8,7 @@ const addPersonal = async(req,res)=>{
         }
         const {user} = req;
         const paidBy = user._id;
-        let description = null;
-        if(req.body.description){
-            description = req.body.description;
-        }
+        const description = req.body.description || null;
         if(type!=="personal"){
             throw new Error("This is for Personal Spending");
         }

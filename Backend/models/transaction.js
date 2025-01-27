@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const transactionSchema = new mongoose.Schema({
     type:{
         type: String,
-        enum: ['personal', 'group', 'lending','borrowing'],
+        enum: ['personal', 'group', 'nonGroup'],
         required: true,
     },
     amount:{
@@ -22,11 +22,11 @@ const transactionSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    spiltMethod:{
+    splitMethod:{
         type: String,
-        enum: ['equally', 'percentage', 'amount'],
+        enum: ['equally', 'percentage', 'unEqually'],
         required: function () {
-            return this.type === "group";
+            return this.type !== "personal";
         },
     },
     sharedWith:[{
@@ -46,26 +46,6 @@ const transactionSchema = new mongoose.Schema({
               return this.type === "group";
             },
             message: "groupId is required for group transactions.",
-        },
-    },
-    lendTo:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        validate: {
-            validator: function () {
-              return this.type === "lending";
-            },
-            message: "lendTo is required for lending transactions.",
-        },
-    },
-    borrowFrom:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        validate: {
-            validator: function () {
-              return this.type === "borrowing";
-            },
-            message: "borrowFrom is required for borrowing transactions.",
         },
     },
     status:{
