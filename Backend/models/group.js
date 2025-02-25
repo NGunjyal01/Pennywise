@@ -20,10 +20,10 @@ const groupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }],
-    transactions:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Transaction",
-    }]
+    // transactions:[{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Transaction",
+    // }]
 
 },{timestamps: true});
 
